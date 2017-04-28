@@ -19,6 +19,9 @@ screen
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>Calculator</title>
 </head>
 <body>
@@ -27,37 +30,51 @@ screen
         <div class = "screen">
             <div class = "input">0</div>
             <div class = "memory">0</div>
-        </div>
-        <div class = "clear">
-            
-        </div>
-        <div class = "row1"> 
-            <button>AC </button>
-            <button>CE </button>
-            <button> / </button>
-            <button> x </button>
-        </div>
-        <div class = "row2">
-            <button> 7 </button>
-            <button> 8 </button>
-            <button> 9 </button>
-            <button> - </button>
-        </div>
-        <div class = "row3">
-            <button> 4 </button>
-            <button> 5 </button>
-            <button> 6 </button>
-            <button> + </button>    
-        </div>
-        <div class = "row4">
-            <button> 1 </button>
-            <button> 2 </button>
-            <button> 3 </button>
-            <button> = </button>
-        </div>
-        <div class = "row5">
-            <button>   0   </button>
-            <button> . </button>
+        </div>            
+        <div class = "keys">
+            <div class="container">
+                <div class = "row">
+                    <div class="col-xs-2">
+                        <div><button class = "seven"> 7 </button></div>
+                        <div><button class = "four"> 4 </button></div>
+                        <div><button class = "one"> 1 </button></div>
+                        <div><button class = "zero"> 0 </button></div>
+                        
+                    </div>
+                    <div class = "col-xs-2">
+                        <div><button class = "eight"> 8 </button></div>
+                        <div><button class = "five"> 5 </button></div>
+                        <div><button class = "two"> 2 </button></div>
+                        <div><button class = "point"> . </button></div>
+                        
+                    </div>
+                    <div class = "col-xs-2">
+                        <div><button class = "nine"> 9 </button></div>
+                        <div><button class = "six"> 6 </button></div>
+                        <div><button class = "three"> 3 </button></div>
+                        <div><button class = "sign"> +/- </button></div>                
+                        
+                    </div>
+                    <div class = "col-xs-2">
+                        <div><button class = "leftBracket"> ( </button></div>
+                        <div><button class = "multiply"> x </button></div>
+                        <div><button class = "plus"> + </button></div>
+                        
+                    </div>
+                    <div class = "col-xs-2">
+                        <div><button class = "rightBracket"> ) </button></div>
+                        <div><button class = "divide"> / </button></div>
+                        <div><button class = "minus"> - </button></div>
+                        <div><button class = "equals"> = </button></div>
+                    </div>
+                    <div class = "col-xs-2">
+                        <div><button class = "allClear">AC </button></div>
+                        <div><button class = "del"> DEL </button></div>
+                        <div><button class = "leftArrow"> <span class="glyphicon glyphicon-chevron-left"></span> </button></div>
+                        <div><button class = "rightArrow"> <span class="glyphicon glyphicon-chevron-right"></span> </button></div>
+                    </div>
+                </div>
+            </div>    
         </div>       
     </div>
     <div class = "copyright">

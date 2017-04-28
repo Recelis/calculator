@@ -7,16 +7,28 @@ User Story: I can clear the input field with a clear button.
 User Story: I can keep chaining mathematical operations together until I hit the equal button, and the calculator will tell me the correct output.
 
 
-functions:
+objects:
+screen
+    memory string
+    input string
+    edit()
 
+keypad
 
-input:
-do:
-output:
-
+data 
+    memory
+    input
 
 writing in Vanilla JS
 
 do:
 
 */
+
+
+document.getElementById();
+
+$(docuent.ready(function(){
+
+}));
+
