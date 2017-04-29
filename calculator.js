@@ -18,7 +18,7 @@ data
         do: convert to a formula 
         output: resumts 
 
-screen
+view
     purpose(ABSTRACTS SCREEN): displays data onto screen
     memory string
     input string
@@ -38,29 +38,31 @@ keypad
 writing with as much Vanilla JS as possible
 */
 
-var Data = function() {
-    var memory = [];
-    var input = [0];
-    var results = [];
-    this.calculation = function(){
+var data = {
+    memory: [],
+    input: [],
+    results: [],
+    updateView: function(){
+        view.update();
+    },
+    updateMemory:function(){
 
-    };
+    }
 };
 
-var Keypad = function(){
-    this.keysListener = function(memory, input){
-        document.getElementById('seven').addEventListener("click", this.changeData('seven'));
-    }
-    this.changeData = function(value){
-        alert(value);
-    }
+var keypad = {
+    numberPressed: function(number){
+        data.input.push(number);
+        data.updateView();
+    },
 }
 
+var view = {
+    update: function(){
+        var myDisplay = document.getElementById('display');
+        var myMemory = document.getElementById('memory');
+        myDisplay.innerHTML = data.input[data.input.length - 1];
+    }
+};
 
-$(document).ready(function(){
-    var data = new Data();
-    var keypad = new Keypad();
-    keypad.keysListener(data.memory, data.input);
-    alert("boo!");
-});
 

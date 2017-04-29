@@ -33,21 +33,21 @@ screen
         <div class = "logo"> DI geeOhDee</div>
         <div class = "container">
             <div class = "screen jumbotron">
-                <div class = "input">0</div>
-                <div class = "memory">0</div>
+                <div id = "display">0</div>
+                <div id = "memory">0</div>
             </div>
         </div>            
         <div class = "keys">
             <div class="container">
                 <div class = "row">
                     <div class = "col-xs-2">
-                        <div><button id = "seven"> 7 </button></div>
+                        <div><button id = "seven" onclick="keypad.numberPressed(7)"> 7 </button></div>
                     </div>
                     <div class = "col-xs-2">
-                         <div><button id = "eight"> 8 </button></div>
+                         <div><button id = "eight" onclick="keypad.numberPressed(8)"> 8 </button></div>
                     </div> 
                     <div class = "col-xs-2">
-                        <div><button id = "nine"> 9 </button></div>
+                        <div><button id = "nine" onclick="keypad.numberPressed(9)"> 9 </button></div>
                     </div> 
                     <div class = "col-xs-2">
                         <div><button id = "rightBracket"> ) </button></div>
@@ -59,16 +59,16 @@ screen
 
                 <div class = "row">
                     <div class="col-xs-2">
-                        <div><button id = "four"> 4 </button></div>
-                        <div><button id = "one"> 1 </button></div>
+                        <div><button id = "four" onclick="keypad.numberPressed(4)"> 4 </button></div>
+                        <div><button id = "one" onclick="keypad.numberPressed(1)"> 1 </button></div>
                     </div>
                     <div class = "col-xs-2">
-                        <div><button id = "five"> 5 </button></div>
-                        <div><button id = "two"> 2 </button></div>
+                        <div><button id = "five" onclick="keypad.numberPressed(5)"> 5 </button></div>
+                        <div><button id = "two" onclick="keypad.numberPressed(2)"> 2 </button></div>
                     </div>
                     <div class = "col-xs-2">
-                        <div><button id = "six"> 6 </button></div>
-                        <div><button id = "three"> 3 </button></div>
+                        <div><button id = "six" onclick="keypad.numberPressed(6)"> 6 </button></div>
+                        <div><button id = "three" onclick="keypad.numberPressed(3)"> 3 </button></div>
                     </div>
                     <div class = "col-xs-2">
                         <div><button id = "multiply"> x </button></div>
@@ -85,7 +85,7 @@ screen
                 </div>
                 <div class = "row">
                     <div class = "col-xs-2">
-                        <div><button id = "zero"> 0 </button></div>
+                        <div><button id = "zero" onclick="keypad.numberPressed(0)"> 0 </button></div>
                     </div>
                     <div class = "col-xs-2">
                         <div><button id = "point"> . </button></div>
