@@ -16,7 +16,16 @@ data
     calculation():
         input: memory
         do: convert to a formula 
-        output: resumts 
+        output: results
+    updateView():
+        input: NA
+        do: calls to update the screen
+        output: NA
+    updateMemory():
+        input: keystrokes, position of mouse
+        do: updates the data in memory and input
+        output: NA
+
 
 view
     purpose(ABSTRACTS SCREEN): displays data onto screen
@@ -45,14 +54,69 @@ var data = {
     updateView: function(){
         view.update();
     },
-    updateMemory:function(){
+    updateMemory:function(value, buttonObject){
+        switch (buttonObject.className){
+            case "operations":
+                if (data.memory.length == 0){
+                    data.input[0] = 0;
+                    data.memory.push(0);
+                    data.memory.push(value.toString(value));
+                } else {
+                    data.memory.push(value);
+                    data.input = [0];
+                }
+                break;
+            case "special":
+
+                break;
+            case "numbers":
+                if (data.input.length == 1 && data.input[0] == 0) data.input[0] = value;
+                else data.input.push(value);
+                data.memory.push(value);
+                break;
+            case "control":
+                break;
+        };
+        return data.memory.length+1;
+        //  if (data.input.length == 0 || data.memory.length == 0){ // if no values in memory or input
+        //     if (buttonObject.className == "operations"){
+        //         data.memory.push(0);
+        //         data.memory.push(value.toString(value));
+        //     }
+        // }
+    },
+
+    // updateMemory:function(value, buttonObject){
+    //     else{
+
+    //     }
+    //     if (value.toString().match(/\d+/g)){ // if value is a number
+    //         data.input.push(value);
+    //         data.memory.push(value);
+    //     } 
+        
+    //     // if (value.) // if value is an operation
+    //     // if (value) // if value is a control 
+    // },
+    calculation:function(a,b){
+        switch(value){
+            case '+':
+            break;
+            case '-':
+            break;
+            case 'x':
+            break;
+            case '/':
+            break;
+        }
 
     }
 };
 
 var keypad = {
-    numberPressed: function(number){
-        data.input.push(number);
+    keyPosition: 0,
+    buttonPressed: function(number,buttonObject){
+        keypad.keyPosition = data.updateMemory(number, buttonObject);
         data.updateView();
     },
 }
@@ -61,7 +125,9 @@ var view = {
     update: function(){
         var myDisplay = document.getElementById('display');
         var myMemory = document.getElementById('memory');
-        myDisplay.innerHTML = data.input[data.input.length - 1];
+        myDisplay.innerHTML = data.input.toString();
+        myMemory.innerHTML = data.memory;
+        console.log(keypad.keyPosition);
     }
 };
 
