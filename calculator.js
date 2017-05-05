@@ -57,47 +57,61 @@ var data = {
     updateMemory:function(value, buttonObject){
         switch (buttonObject.className){
             case "operations":
-                if (data.memory.length == 0){
-                    data.input[0] = 0;
+                if (data.memory.length == 0 && data.input.length == 0){
+                    data.input = [0];
                     data.memory.push(0);
                     data.memory.push(value.toString(value));
                 } else {
+                    data.memory = data.memory.concat(data.input);
                     data.memory.push(value);
                     data.input = [0];
                 }
                 break;
             case "special":
+                switch(value){
+                    case '(':
+                    data.memory.push('(');
+                    break;
+                    case ')':
+                    data.memory.push(')');
+                    break;
+                    case 'sign':
+                    data.input[0] = -data.input[0];
+                    break;
+                    case '.':
+                    data.input.push('.');
+                    break;
+                    case '<':
 
+                    break;
+                    case '>':
+
+                    break;
+                }
                 break;
             case "numbers":
                 if (data.input.length == 1 && data.input[0] == 0) data.input[0] = value;
                 else data.input.push(value);
-                data.memory.push(value);
                 break;
             case "control":
+                switch (value){
+                    case 'DEL':
+                        if (data.input.length > 1){
+                            data.input.pop();
+                            data.memory.pop();
+                        } else {
+                            data.input[0] = 0;
+                            if (data.memory.length > 0) data.memory.pop();
+                        }
+                    break;
+                    case '=':
+                    data.calculation();
+                    break;
+                }
                 break;
         };
         return data.memory.length+1;
-        //  if (data.input.length == 0 || data.memory.length == 0){ // if no values in memory or input
-        //     if (buttonObject.className == "operations"){
-        //         data.memory.push(0);
-        //         data.memory.push(value.toString(value));
-        //     }
-        // }
     },
-
-    // updateMemory:function(value, buttonObject){
-    //     else{
-
-    //     }
-    //     if (value.toString().match(/\d+/g)){ // if value is a number
-    //         data.input.push(value);
-    //         data.memory.push(value);
-    //     } 
-        
-    //     // if (value.) // if value is an operation
-    //     // if (value) // if value is a control 
-    // },
     calculation:function(a,b){
         switch(value){
             case '+':
@@ -109,7 +123,6 @@ var data = {
             case '/':
             break;
         }
-
     }
 };
 
@@ -125,10 +138,18 @@ var view = {
     update: function(){
         var myDisplay = document.getElementById('display');
         var myMemory = document.getElementById('memory');
-        myDisplay.innerHTML = data.input.toString();
-        myMemory.innerHTML = data.memory;
-        console.log(keypad.keyPosition);
+        myDisplay.innerHTML = view.convertDataToString(data.input);
+        myMemory.innerHTML = view.convertDataToString(data.memory);
+        ;
+    },
+    convertDataToString: function(screenData){
+        var screenDisplay = '';
+        for (var ii =0; ii < screenData.length; ii++){
+             screenDisplay += screenData[ii].toString();
+        }
+        return screenDisplay;
     }
+
 };
 
 
