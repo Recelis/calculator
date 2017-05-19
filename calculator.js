@@ -47,6 +47,7 @@ keypad
 writing with as much Vanilla JS as possible
 */
 
+/* data object*/ 
 var data = {
     memory: [],
     input: [],
@@ -54,65 +55,22 @@ var data = {
     updateView: function(){
         view.update();
     },
-    updateMemory:function(value, buttonObject){
+    updateMemory:function(keyPressed, buttonObject){
         switch (buttonObject.className){
-            case "operations":
-                if (data.memory.length == 0 && data.input.length == 0){
-                    data.input = [0];
-                    data.memory.push(0);
-                    data.memory.push(value.toString(value));
-                } else {
-                    data.memory = data.memory.concat(data.input);
-                    data.memory.push(value);
-                    data.input = [0];
-                }
-                break;
-            case "special":
-                switch(value){
-                    case '(':
-                    data.memory.push('(');
-                    break;
-                    case ')':
-                    data.memory.push(')');
-                    break;
-                    case 'sign':
-                    data.input[0] = -data.input[0];
-                    break;
-                    case '.':
-                    data.input.push('.');
-                    break;
-                    case '<':
-
-                    break;
-                    case '>':
-
-                    break;
-                }
-                break;
             case "numbers":
-                if (data.input.length == 1 && data.input[0] == 0) data.input[0] = value;
-                else data.input.push(value);
-                break;
-            case "control":
-                switch (value){
-                    case 'DEL':
-                        if (data.input.length > 1){
-                            data.input.pop();
-                            data.memory.pop();
-                        } else {
-                            data.input[0] = 0;
-                            if (data.memory.length > 0) data.memory.pop();
-                        }
-                    break;
-                    case '=':
-                    data.calculation();
-                    break;
-                }
+                data.input=data.numberInput(data.input, keyPressed);
                 break;
         };
         return data.memory.length+1;
     },
-    calculation:function(a,b){
+    numberInput:function(inputRow, numberPressed){
+        if (inputRow.length == 1 && inputRow[0] == 0) inputRow[0] = numberPressed;
+        else inputRow.push(numberPressed);
+        return inputRow;
+    },
+
+    calculation:function(){
+        var value = ''; // change later
         switch(value){
             case '+':
             break;
@@ -126,30 +84,33 @@ var data = {
     }
 };
 
+/* keypad object*/
 var keypad = {
     keyPosition: 0,
-    buttonPressed: function(number,buttonObject){
-        keypad.keyPosition = data.updateMemory(number, buttonObject);
+    buttonPressed: function(keyPressed,buttonObject){
+        keypad.keyPosition = data.updateMemory(keyPressed, buttonObject);
         data.updateView();
+        return keyPressed;
     },
 }
 
+/* view object*/ 
 var view = {
     update: function(){
         var myDisplay = document.getElementById('display');
         var myMemory = document.getElementById('memory');
         myDisplay.innerHTML = view.convertDataToString(data.input);
         myMemory.innerHTML = view.convertDataToString(data.memory);
-        ;
+        
     },
     convertDataToString: function(screenData){
         var screenDisplay = '';
         for (var ii =0; ii < screenData.length; ii++){
              screenDisplay += screenData[ii].toString();
         }
+        console.log(screenData);
         return screenDisplay;
     }
-
 };
 
 

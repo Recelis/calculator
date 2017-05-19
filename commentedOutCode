@@ -1,0 +1,57 @@
+// case "operations":
+            //     if (data.memory.length == 0 && data.input.length == 0){
+            //         data.input = [0];
+            //         data.memory.push(0);
+            //         data.memory.push(value.toString(value));
+            //     } else {
+            //         data.memory = data.memory.concat(data.input);
+            //         data.memory.push(value);
+            //         data.input = [0];
+            //     }
+            //     break;
+            // case "special":
+            //     switch(value){
+            //         case '(':
+            //             data.memory.push('(');
+            //             break;
+            //         case ')':
+            //             data.memory.push(')');
+            //             break;
+            //         case 'sign':
+            //             data.input[0] = -data.input[0];
+            //                 break;
+            //         case '.':
+            //             data.input.push('.');
+            //             break;
+            //         case '<':
+
+            //             break;
+            //         case '>':
+
+            //             break;
+            //     }
+            //     break;
+
+
+
+            // case "control":
+            //     switch (value){
+            //         case 'DEL':
+            //             if (data.input.length > 1){
+            //                 data.input.pop();
+            //                 data.memory.pop();
+            //             } else {
+            //                 data.input[0] = 0;
+            //                 if (data.memory.length > 0) data.memory.pop();
+            //             }
+            //         break;
+            //         case '=':
+            //             data.calculation();
+            //             data.input = data.results;
+            //         break;
+            //         case 'AC':
+            //             data.input = [0];
+            //             data.memory = [];
+            //         break;
+            //     }
+            //     break;
