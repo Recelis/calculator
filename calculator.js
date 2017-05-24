@@ -29,7 +29,7 @@ view
     memory string
     input string
     edit()
-    convertDataToString()
+    convertDataToColumns()
         input: Data
         output: data as string
 
@@ -56,7 +56,8 @@ var data = {
     inputLocation:0,
     results: [],
     updateMemory:function(keyPressed, buttonObject){
-        switch (buttonObject.className){
+        console.log(buttonObject.className.split(' ')[0]);
+        switch (buttonObject.className.split(' ')[0]){
             case "numbers":
                 data.input=data.numberInput(data.input, keyPressed);
                 break;
@@ -110,19 +111,16 @@ var keypad = {
 /* view object*/ 
 var view = {
     update: function(){
-        var myDisplay = document.getElementById('display');
-        var myMemory = document.getElementById('memory');
-        myDisplay.innerHTML = view.convertDataToString(data.input);
-        myMemory.innerHTML = view.convertDataToString(data.memory);
-        
+        view.convertDataToColumns(data.input, "InputPos", 0);
+        // view.convertDataToColumns(data.memory, "memoryPos", pointerValue);
     },
-    convertDataToString: function(screenData){
-        var screenDisplay = '';
-        for (var ii =0; ii < screenData.length; ii++){
-             screenDisplay += screenData[ii].toString();
+    convertDataToColumns: function(screenData, screenRow, startValue){
+        var maxScreenValue = Math.min(screenData.length, 12);
+        for (var ii =startValue; ii < maxScreenValue; ii++){
+            console.log(screenRow + ii);
+            var cell = document.getElementById(screenRow + ii);
+            cell.innerHTML = screenData[ii];
         }
-        console.log(screenData);
-        return screenDisplay;
     }
 };
 
