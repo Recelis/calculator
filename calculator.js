@@ -61,6 +61,38 @@ var data = {
             case "numbers":
                 data.input=data.numberInput(data.input, keyPressed);
                 break;
+            // case "operations":
+            //     if (data.memory.length == 0 && data.input.length == 0){
+            //         data.input = [0];
+            //         data.memory.push(0);
+            //         data.memory.push(value.toString(value));
+            //     } else {
+            //         data.memory = data.memory.concat(data.input);
+            //         data.memory.push(value);
+            //         data.input = [0];
+            //     }
+            //     break;
+            case "control":
+                switch (keyPressed){
+                    case 'DEL':
+                        if (data.input.length > 1){
+                            data.input.pop();
+                            data.memory.pop();
+                        } else {
+                            data.input[0] = 0;
+                            if (data.memory.length > 0) data.memory.pop();
+                        }
+                    break;
+                    case '=':
+                        data.calculation();
+                        data.input = data.results;
+                    break;
+                    case 'AC':
+                        data.input = [0];
+                        data.memory = [];
+                    break;
+                }
+                break;
         };
         return data.memory.length+1;
     },
@@ -69,18 +101,7 @@ var data = {
         else inputRow.push(numberPressed);
         return inputRow;
     },
-    checkInputMaxSize:function(){
-
-    },
-    checkMemoryMaxSize:function(){
-
-    },
-    checkOutputMaxSize:function(){
-
-    },
-    checkFloatMaxSize:function(){
-
-    },
+    
 
 
     calculation:function(){
@@ -103,6 +124,7 @@ var keypad = {
     keyPosition: 0,
     buttonPressed: function(keyPressed,buttonObject){
         keypad.keyPosition = data.updateMemory(keyPressed, buttonObject);
+        view.clearScreen();
         view.update();
         return keyPressed;
     },
@@ -114,12 +136,20 @@ var view = {
         view.convertDataToColumns(data.input, "InputPos", 0);
         // view.convertDataToColumns(data.memory, "memoryPos", pointerValue);
     },
+    clearScreen:function(){
+        for (var ii =0; ii < 12; ii++){
+            var inputCell = document.getElementById("InputPos"+ii);
+            var memoryCell = document.getElementById("memoryPos"+ii);
+            inputCell.innerHTML = '';
+            memoryCell.innerHTML = '';
+        }
+    },
     convertDataToColumns: function(screenData, screenRow, startValue){
         var maxScreenValue = Math.min(screenData.length, 12);
         for (var ii =startValue; ii < maxScreenValue; ii++){
             console.log(screenRow + ii);
             var cell = document.getElementById(screenRow + ii);
-            cell.innerHTML = screenData[ii];
+            cell.innerHTML = screenData[maxScreenValue-ii-1];
         }
     }
 };
