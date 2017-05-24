@@ -32,86 +32,86 @@ buttons AC, and CEAllan999.
             <div class = "screen jumbotron">
                 <div id = "memory"></div>
                 <div id = "display">0</div>
-                <!--<div class = "row"> this needs to be done either on another row underneath numbers, or I could highlight rows instead
+                <div class = "row">
                     <div class = "col-xs-1" id = "underPos0">1</div>
                     <div class = "col-xs-1" id = "underPos1">2</div>
                     <div class = "col-xs-1" id = "underPos2">3</div>
-                    <div class = "col-xs-1" id = "underPos3">4</div>
+                    <div class = "col-xs-1 red" id = "underPos3">4</div>
                     <div class = "col-xs-1" id = "underPos4">5</div>
-                    <div class = "col-xs-1" id = "underPos5">6</div>
+                    <div class = "col-xs-1 red" id = "underPos5">6</div>
                     <div class = "col-xs-1" id = "underPos6">7</div>
                     <div class = "col-xs-1" id = "underPos7">8</div>
                     <div class = "col-xs-1" id = "underPos8">9</div>
                     <div class = "col-xs-1" id = "underPos9">0</div>
                     <div class = "col-xs-1" id = "underPos10">1</div>
                     <div class = "col-xs-1" id = "underPos11">2</div>
-                </div>-->
+                </div>
             </div>
         </div>            
         <div class = "keys">
             <div class="container">
                 <div class = "row">
                     <div class = "col-xs-2">
-                        <div><button id = "seven" class = "numbers" onclick="keypad.buttonPressed(7, this)"> 7 </button></div>
+                        <div><button id = "seven" class = "numbers btn-primary" onclick="keypad.buttonPressed(7, this)"> 7 </button></div>
                     </div>
                     <div class = "col-xs-2">
-                         <div><button id = "eight" class = "numbers" onclick="keypad.buttonPressed(8, this)"> 8 </button></div>
+                         <div><button id = "eight" class = "numbers btn-primary" onclick="keypad.buttonPressed(8, this)"> 8 </button></div>
                     </div> 
                     <div class = "col-xs-2">
-                        <div><button id = "nine" class = "numbers" onclick="keypad.buttonPressed(9, this)"> 9 </button></div>
+                        <div><button id = "nine" class = "numbers btn-primary" onclick="keypad.buttonPressed(9, this)"> 9 </button></div>
                     </div> 
                     <div class = "col-xs-2">
-                        <div><button id = "leftBracket" class = "special" onclick="keypad.buttonPressed('(', this)"> ( </button></div>
+                        <div><button id = "leftBracket" class = "special btn-primary" onclick="keypad.buttonPressed('(', this)"> ( </button></div>
                     </div>
                     <div class = "col-xs-2">
-                        <div><button id = "rightBracket" class = "special" onclick="keypad.buttonPressed(')', this)"> ) </button></div>
+                        <div><button id = "rightBracket" class = "special btn-primary" onclick="keypad.buttonPressed(')', this)"> ) </button></div>
                     </div> 
                     <div class = "col-xs-2">
-                        <div><button id = "allClear" class = "control" onclick="keypad.buttonPressed('AC', this)">AC </button></div>
+                        <div><button id = "allClear" class = "control btn-primary" onclick="keypad.buttonPressed('AC', this)">AC </button></div>
                     </div>     
                 </div>
 
                 <div class = "row">
                     <div class="col-xs-2">
-                        <div><button id = "four" class = "numbers" onclick="keypad.buttonPressed(4, this)"> 4 </button></div>
-                        <div><button id = "one" class = "numbers" onclick="keypad.buttonPressed(1, this)"> 1 </button></div>
+                        <div><button id = "four" class = "numbers btn-primary" onclick="keypad.buttonPressed(4, this)"> 4 </button></div>
+                        <div><button id = "one" class = "numbers btn-primary" onclick="keypad.buttonPressed(1, this)"> 1 </button></div>
                     </div>
                     <div class = "col-xs-2">
-                        <div><button id = "five" class = "numbers" onclick="keypad.buttonPressed(5, this)"> 5 </button></div>
-                        <div><button id = "two" class = "numbers" onclick="keypad.buttonPressed(2, this)"> 2 </button></div>
+                        <div><button id = "five" class = "numbers btn-primary" onclick="keypad.buttonPressed(5, this)"> 5 </button></div>
+                        <div><button id = "two" class = "numbers btn-primary" onclick="keypad.buttonPressed(2, this)"> 2 </button></div>
+                    </div>
+                    <div class = "col-xs-2"> 
+                        <div><button id = "six" class = "numbers btn-primary" onclick="keypad.buttonPressed(6, this)"> 6 </button></div>
+                        <div><button id = "three" class = "numbers btn-primary" onclick="keypad.buttonPressed(3, this)"> 3 </button></div>
                     </div>
                     <div class = "col-xs-2">
-                        <div><button id = "six" class = "numbers" onclick="keypad.buttonPressed(6, this)"> 6 </button></div>
-                        <div><button id = "three" class = "numbers" onclick="keypad.buttonPressed(3, this)"> 3 </button></div>
+                        <div><button id = "multiply" class = "operations btn-primary" onclick="keypad.buttonPressed('x', this)"> x </button></div>
+                        <div><button id = "plus" class = "operations btn-primary" onclick="keypad.buttonPressed('+', this)"> + </button></div>
                     </div>
                     <div class = "col-xs-2">
-                        <div><button id = "multiply" class = "operations" onclick="keypad.buttonPressed('x', this)"> x </button></div>
-                        <div><button id = "plus" class = "operations" onclick="keypad.buttonPressed('+', this)"> + </button></div>
+                        <div><button id = "divide" class = "operations btn-primary" onclick="keypad.buttonPressed('/', this)"> / </button></div>
+                        <div><button id = "minus" class = "operations btn-primary" onclick="keypad.buttonPressed('-', this)"> - </button></div>
                     </div>
                     <div class = "col-xs-2">
-                        <div><button id = "divide" class = "operations" onclick="keypad.buttonPressed('/', this)"> / </button></div>
-                        <div><button id = "minus" class = "operations" onclick="keypad.buttonPressed('-', this)"> - </button></div>
-                    </div>
-                    <div class = "col-xs-2">
-                        <div><button id = "del" class = "control" onclick="keypad.buttonPressed('DEL', this)"> DEL </button></div>
-                        <div><button id = "leftArrow" class = "special" onclick="keypad.buttonPressed('>', this)"> <span class="glyphicon glyphicon-chevron-left"></span> </button></div>
+                        <div><button id = "del" class = "control btn-primary" onclick="keypad.buttonPressed('DEL', this)"> DEL </button></div>
+                        <div><button id = "leftArrow" class = "special btn-primary" onclick="keypad.buttonPressed('>', this)"> <span class="glyphicon glyphicon-chevron-left"></span> </button></div>
                     </div>
                 </div>
                 <div class = "row">
                     <div class = "col-xs-2">
-                        <div><button id = "zero" class = "numbers" onclick="keypad.buttonPressed(0, this)"> 0 </button></div>
+                        <div><button id = "zero" class = "numbers btn-primary" onclick="keypad.buttonPressed(0, this)"> 0 </button></div>
                     </div>
                     <div class = "col-xs-2">
-                        <div><button id = "point" class = "special" onclick="keypad.buttonPressed('.', this)"> . </button></div>
+                        <div><button id = "point" class = "special btn-primary" onclick="keypad.buttonPressed('.', this)"> . </button></div>
                     </div>
                     <div class = "col-xs-2">
-                        <div><button id = "sign" class = "special" onclick="keypad.buttonPressed('sign', this)"> +/- </button></div>
+                        <div><button id = "sign" class = "special btn-primary" onclick="keypad.buttonPressed('sign', this)"> +/- </button></div>
                     </div>
                     <div class = "col-xs-4">
-                        <div><button id = "equals" class = "control" onclick="keypad.buttonPressed('=', this)"> = </button></div>
+                        <div><button id = "equals" class = "control btn-primary" onclick="keypad.buttonPressed('=', this)"> = </button></div>
                     </div>
                     <div class = "col-xs-2">
-                         <div><button id = "rightArrow" class = "special" onclick="keypad.buttonPressed('<', this)"> <span class="glyphicon glyphicon-chevron-right"></span> </button></div>
+                         <div><button id = "rightArrow" class = "special btn-primary" onclick="keypad.buttonPressed('<', this)"> <span class="glyphicon glyphicon-chevron-right"></span> </button></div>
                     </div>
                 </div>
             </div>    

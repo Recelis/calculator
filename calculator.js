@@ -13,14 +13,11 @@ data
     memory: an array of strings
     input: an array
     results: an array
+    inputLocation: where pointer hand points to.
     calculation():
         input: memory
         do: convert to a formula 
         output: results
-    updateView():
-        input: NA
-        do: calls to update the screen
-        output: NA
     updateMemory():
         input: keystrokes, position of mouse
         do: updates the data in memory and input
@@ -47,14 +44,17 @@ keypad
 writing with as much Vanilla JS as possible
 */
 
+/* Operation Object*/
+var operation = {
+
+}
+
 /* data object*/ 
 var data = {
     memory: [],
     input: [],
+    inputLocation:0,
     results: [],
-    updateView: function(){
-        view.update();
-    },
     updateMemory:function(keyPressed, buttonObject){
         switch (buttonObject.className){
             case "numbers":
@@ -68,6 +68,19 @@ var data = {
         else inputRow.push(numberPressed);
         return inputRow;
     },
+    checkInputMaxSize:function(){
+
+    },
+    checkMemoryMaxSize:function(){
+
+    },
+    checkOutputMaxSize:function(){
+
+    },
+    checkFloatMaxSize:function(){
+
+    },
+
 
     calculation:function(){
         var value = ''; // change later
@@ -89,7 +102,7 @@ var keypad = {
     keyPosition: 0,
     buttonPressed: function(keyPressed,buttonObject){
         keypad.keyPosition = data.updateMemory(keyPressed, buttonObject);
-        data.updateView();
+        view.update();
         return keyPressed;
     },
 }
