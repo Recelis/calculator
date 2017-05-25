@@ -95,6 +95,8 @@ var data = {
                         }
                     break;
                     case '=':
+                        data.memory = data.memory.concat(data.input);
+                        data.memory.push(keyPressed);
                         data.calculation();
                         data.input = data.results;
                     break;
