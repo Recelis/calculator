@@ -75,7 +75,7 @@ var data = {
                 break;
             case "operations":
                 data.removeDotFromInput();
-                if (data.memory.length == 0 && data.input.length == 0){
+                if (data.memory.length == 0 && (data.input.length == 0 || data.input[0] == '-')){
                     data.input = [0];
                     data.memory.push(0);
                     data.memory.push(keyPressed);
