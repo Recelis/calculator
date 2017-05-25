@@ -26,10 +26,14 @@ data
         input: data.input
         do: called in operations, if memory ends with dot, remove dot from memory
         output:NA
-    evaluateTerms():
+    loopTermsByPriority():
         input: 
         do: 
-        out: terms
+        out: evalutated terms
+    evaluateTerms():
+        input: two terms, and an operator
+        do: sum, divide, multiply. minus them
+        out: result
 
 
 view
@@ -73,10 +77,12 @@ var operation = {
     errResultTooBig:['A','n','s',' ','T','o','o',' ','b','i','g','!'],
     terms:[],
     operatorIndices:[],
+    numPriorities: 3,
     calculate:function(){
         operation.operatorIndices = [];
         operation.terms = [];
         operation.parse();
+        operation.loopTermsByPriority();
     },
     parse:function(){
         var equation = data.memory.join('');
@@ -87,7 +93,7 @@ var operation = {
                 newTerm+=equation[ii];
             } else{
                 operation.terms.push(newTerm);
-                operation.operatorIndices.push([ii,operation.priority(equation[ii])]);
+                operation.operatorIndices.push([operation.priority(equation[ii]),ii]);
                 newTerm = '';
                 operation.terms.push(equation[ii]);
             }
@@ -97,9 +103,44 @@ var operation = {
         if (operator == '(' || operator ==')') return 0;
         if (operator == '/' || operator== 'x') return 1;
         if (operator == '+' || operator == '-') return 2;
+        if (operator == '=') return 3;
     },
-    evaluateTerms:function(){
-
+    loopTermsByPriority:function(){ // this could be been done better by instantialising objects
+        // loop through the priorities list, 0 to 3
+        for (var ii =0; ii < operation.numPriorities; ii++){       
+            // loop through operator indices
+            for (var jj =0; jj < operation.operatorIndices.length; jj++){
+                if (operation.operatorIndices[jj][0] == ii){ // check through each priority in index
+                    var operand1 = operation.terms[operation.operatorIndices[jj][1]-1];
+                    var operand2 = operation.terms[operation.operatorIndices[jj][1]+1];
+                    var operator = operation.terms[operation.operatorIndices[jj][1]];
+                    var result = operation.evaluateTerms(operand1, operand2, operator);
+                    // update terms and break loop
+                    console.log(result);
+                    return result;
+                }
+            }
+        }
+    },
+    evaluateTerms:function(operand1, operand2, operator){
+        console.log(operand1);
+        console.log(operand2);
+        console.log(operator);
+        var result = 0;
+        switch (operator){
+            case '+':
+                result = operand1+operand2;
+                break;
+            case '-':
+                result = operand1 - operand2;
+                break;
+            case 'x':
+                result = operand1 * operand2;
+                break;
+            case '/':
+                result = operand1/operand2;
+                break;
+        } return result;
     }
 }
 
