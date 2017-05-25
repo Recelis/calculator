@@ -59,7 +59,25 @@ writing with as much Vanilla JS as possible
 
 /* Operation Object*/
 var operation = {
-
+    errInvalidEquation:['I','n','v','a','l','i','d',' ','E','q','n','!',],
+    errResultTooBig:['A','n','s',' ','T','o','o',' ','b','i','g','!'],
+    terms:[],
+    parse:function(){
+        var equation = data.memory.join('');
+        var newTerm = [];
+        for (var ii =0; ii < equation.length; ii++){
+            var nextCharacter = equation[ii]
+            if (Number.isInteger(Number(nextCharacter))){
+                newTerm+=equation[ii];
+                console.log(newTerm);
+            } else{
+                operation.terms.push(newTerm);
+                newTerm = '';
+                operation.terms.push(equation[ii]);
+            }
+        }
+        console.log(operation.terms);
+    },
 }
 
 /* data object*/ 
@@ -106,7 +124,7 @@ var data = {
                         }
                         data.memory = data.memory.concat(data.input);
                         data.memory.push(keyPressed);
-                        data.calculation();
+                        operation.parse();
                         data.input = data.results;
                     break;
                     case 'AC':
@@ -160,22 +178,6 @@ var data = {
             data.input.pop();
         }
     },
-    
-
-
-    calculation:function(){
-        var value = ''; // change later
-        switch(value){
-            case '+':
-            break;
-            case '-':
-            break;
-            case 'x':
-            break;
-            case '/':
-            break;
-        }
-    }
 };
 
 /* keypad object*/
@@ -209,7 +211,6 @@ var view = {
     convertDataToColumns: function(screenData, screenRow, startValue){
         var maxScreenValue = Math.min(screenData.length, 12);
         for (var ii =startValue; ii < maxScreenValue; ii++){
-            console.log(screenRow + ii);
             var cell = document.getElementById(screenRow + ii);
             cell.innerHTML = screenData[maxScreenValue-ii-1];
         }

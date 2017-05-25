@@ -1,5 +1,17 @@
 
-            
+                calculation:function(){
+        var value = ''; // change later
+        switch(value){
+            case '+':
+            break;
+            case '-':
+            break;
+            case 'x':
+            break;
+            case '/':
+            break;
+        }
+    }
 
 
 
