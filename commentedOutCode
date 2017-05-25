@@ -1,26 +1,5 @@
 
-            // case "special":
-            //     switch(value){
-            //         case '(':
-            //             data.memory.push('(');
-            //             break;
-            //         case ')':
-            //             data.memory.push(')');
-            //             break;
-            //         case 'sign':
-            //             data.input[0] = -data.input[0];
-            //                 break;
-            //         case '.':
-            //             data.input.push('.');
-            //             break;
-            //         case '<':
-
-            //             break;
-            //         case '>':
-
-            //             break;
-            //     }
-            //     break;
+            
 
 
 

@@ -22,7 +22,10 @@ data
         input: keystrokes, position of mouse
         do: updates the data in memory and input
         output: NA
-
+    removeDotFromInput():
+        input: data.input
+        do: called in operations, if memory ends with dot, remove dot from memory
+        output:NA
 
 view
     purpose(ABSTRACTS SCREEN): displays data onto screen
@@ -66,12 +69,12 @@ var data = {
     inputLocation:0,
     results: [],
     updateMemory:function(keyPressed, buttonObject){
-        console.log(buttonObject.className.split(' ')[0]);
         switch (buttonObject.className.split(' ')[0]){
             case "numbers":
                 data.input=data.numberInput(data.input, keyPressed);
                 break;
             case "operations":
+                data.removeDotFromInput();
                 if (data.memory.length == 0 && data.input.length == 0){
                     data.input = [0];
                     data.memory.push(0);
@@ -79,7 +82,6 @@ var data = {
                 } else {
                     data.memory = data.memory.concat(data.input);
                     data.memory.push(keyPressed);
-                    console.log(data.memory);
                     data.input = [0];
                 }
                 break;
@@ -94,7 +96,8 @@ var data = {
                             if (data.memory.length > 0) data.memory.pop();
                         }
                     break;
-                    case '=':
+                    case '=': // room for refactoring here, same as operations, except for overwriting data.input
+                        data.removeDotFromInput();
                         data.memory = data.memory.concat(data.input);
                         data.memory.push(keyPressed);
                         data.calculation();
@@ -106,6 +109,29 @@ var data = {
                     break;
                 }
                 break;
+            case "special":
+                data.removeDotFromInput();
+                switch(keyPressed){
+                    // case '(':
+                    //     data.memory.push('(');
+                    //     break;
+                    // case ')':
+                    //     data.memory.push(')');
+                    //     break;
+                    // case 'sign':
+                    //     data.input[0] = -data.input[0];
+                    //         break;
+                    case '.':
+                        data.input.push('.');
+                        break;
+                    // case '<':
+
+                    //     break;
+                    // case '>':
+
+                        // break;
+                }
+                break;
         };
         return data.memory.length+1;
     },
@@ -113,6 +139,11 @@ var data = {
         if (inputRow.length == 1 && inputRow[0] == 0) inputRow[0] = numberPressed;
         else inputRow.push(numberPressed);
         return inputRow;
+    },
+    removeDotFromInput:function(){
+        if (data.input[data.input.length-1] =='.'){
+            data.input.pop();
+        }
     },
     
 
