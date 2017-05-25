@@ -26,6 +26,11 @@ data
         input: data.input
         do: called in operations, if memory ends with dot, remove dot from memory
         output:NA
+    evaluateTerms():
+        input: 
+        do: 
+        out: terms
+
 
 view
     purpose(ABSTRACTS SCREEN): displays data onto screen
@@ -72,8 +77,6 @@ var operation = {
         operation.operatorIndices = [];
         operation.terms = [];
         operation.parse();
-        console.log(operation.terms);
-        console.log(operation.operatorIndices);
     },
     parse:function(){
         var equation = data.memory.join('');
@@ -94,6 +97,9 @@ var operation = {
         if (operator == '(' || operator ==')') return 0;
         if (operator == '/' || operator== 'x') return 1;
         if (operator == '+' || operator == '-') return 2;
+    },
+    evaluateTerms:function(){
+
     }
 }
 
