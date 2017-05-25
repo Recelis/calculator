@@ -98,6 +98,12 @@ var data = {
                     break;
                     case '=': // room for refactoring here, same as operations, except for overwriting data.input
                         data.removeDotFromInput();
+                        // if contains negative sign
+                        if (data.input[0] == '-'){
+                            if (data.input.length == 1) data.input.push(0);
+                            data.input.unshift('(');
+                            data.input.push(')');
+                        }
                         data.memory = data.memory.concat(data.input);
                         data.memory.push(keyPressed);
                         data.calculation();
