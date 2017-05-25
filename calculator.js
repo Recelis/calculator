@@ -40,7 +40,17 @@ keypad
         do: updates data
         output: data
         DO:
-
+operation
+    purpose(parse data memory equation and finds results)
+    parse()
+        input: data.memory
+        do: finds BOMDAS terms, finds order of operations
+        output: calculation terms in sequences
+    calculates()
+    sum()
+    minus()
+    divide()
+    multiply()
 writing with as much Vanilla JS as possible
 */
 
