@@ -50,6 +50,11 @@ operation
         do: finds BOMDAS terms, finds order of operations
         output: calculation terms in sequences
     calculates()
+        input: 
+        do: does parsing and calcalations, calls other operation functions
+        out: result
+    priority()
+        do: returns priority scores based on input operation string
     sum()
     minus()
     divide()
@@ -62,9 +67,13 @@ var operation = {
     errInvalidEquation:['I','n','v','a','l','i','d',' ','E','q','n','!',],
     errResultTooBig:['A','n','s',' ','T','o','o',' ','b','i','g','!'],
     terms:[],
+    operatorIndices:[],
     calculate:function(){
+        operation.operatorIndices = [];
+        operation.terms = [];
         operation.parse();
-
+        console.log(operation.terms);
+        console.log(operation.operatorIndices);
     },
     parse:function(){
         var equation = data.memory.join('');
@@ -75,11 +84,17 @@ var operation = {
                 newTerm+=equation[ii];
             } else{
                 operation.terms.push(newTerm);
+                operation.operatorIndices.push([ii,operation.priority(equation[ii])]);
                 newTerm = '';
                 operation.terms.push(equation[ii]);
             }
         }
     },
+    priority:function(operator){
+        if (operator == '(' || operator ==')') return 0;
+        if (operator == '/' || operator== 'x') return 1;
+        if (operator == '+' || operator == '-') return 2;
+    }
 }
 
 /* data object*/ 
