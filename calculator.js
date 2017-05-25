@@ -118,12 +118,16 @@ var data = {
             case "special":
                 data.removeDotFromInput();
                 switch(keyPressed){
-                    // case '(':
-                    //     data.memory.push('(');
-                    //     break;
-                    // case ')':
-                    //     data.memory.push(')');
-                    //     break;
+                    case '(':
+                        data.memory = data.memory.concat(data.input);
+                        data.memory.push('(');
+                        data.input = [];
+                        break;
+                    case ')':
+                        data.memory = data.memory.concat(data.input);
+                        data.memory.push(')');
+                        data.input = [];
+                        break;
                     case 'sign':
                         // toggle between states
                         if (data.input[0] == '-'){
