@@ -62,6 +62,10 @@ var operation = {
     errInvalidEquation:['I','n','v','a','l','i','d',' ','E','q','n','!',],
     errResultTooBig:['A','n','s',' ','T','o','o',' ','b','i','g','!'],
     terms:[],
+    calculate:function(){
+        operation.parse();
+
+    },
     parse:function(){
         var equation = data.memory.join('');
         var newTerm = [];
@@ -69,14 +73,12 @@ var operation = {
             var nextCharacter = equation[ii]
             if (Number.isInteger(Number(nextCharacter))){
                 newTerm+=equation[ii];
-                console.log(newTerm);
             } else{
                 operation.terms.push(newTerm);
                 newTerm = '';
                 operation.terms.push(equation[ii]);
             }
         }
-        console.log(operation.terms);
     },
 }
 
@@ -124,7 +126,7 @@ var data = {
                         }
                         data.memory = data.memory.concat(data.input);
                         data.memory.push(keyPressed);
-                        operation.parse();
+                        operation.calculate();
                         data.input = data.results;
                     break;
                     case 'AC':
