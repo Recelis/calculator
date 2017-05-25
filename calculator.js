@@ -92,7 +92,7 @@ var data = {
                             data.input.pop();
                             data.memory.pop();
                         } else {
-                            data.input[0] = 0;
+                            data.input = [];
                             if (data.memory.length > 0) data.memory.pop();
                         }
                     break;
@@ -104,7 +104,7 @@ var data = {
                         data.input = data.results;
                     break;
                     case 'AC':
-                        data.input = [0];
+                        data.input = [];
                         data.memory = [];
                     break;
                 }
@@ -118,9 +118,14 @@ var data = {
                     // case ')':
                     //     data.memory.push(')');
                     //     break;
-                    // case 'sign':
-                    //     data.input[0] = -data.input[0];
-                    //         break;
+                    case 'sign':
+                        // toggle between states
+                        if (data.input[0] == '-'){
+                            data.input.shift();   
+                        } else{
+                            data.input.unshift('-');
+                        }
+                        break;
                     case '.':
                         data.input.push('.');
                         break;
@@ -179,6 +184,9 @@ var view = {
     update: function(){
         view.convertDataToColumns(data.input, "InputPos", 0);
         view.convertDataToColumns(data.memory, "memoryPos",0);
+        if (data.input.length == 0){
+            document.getElementById("InputPos0").innerHTML = 0;
+        }
     },
     clearScreen:function(){
         for (var ii =0; ii < 12; ii++){
