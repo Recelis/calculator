@@ -61,17 +61,18 @@ var data = {
             case "numbers":
                 data.input=data.numberInput(data.input, keyPressed);
                 break;
-            // case "operations":
-            //     if (data.memory.length == 0 && data.input.length == 0){
-            //         data.input = [0];
-            //         data.memory.push(0);
-            //         data.memory.push(value.toString(value));
-            //     } else {
-            //         data.memory = data.memory.concat(data.input);
-            //         data.memory.push(value);
-            //         data.input = [0];
-            //     }
-            //     break;
+            case "operations":
+                if (data.memory.length == 0 && data.input.length == 0){
+                    data.input = [0];
+                    data.memory.push(0);
+                    data.memory.push(keyPressed);
+                } else {
+                    data.memory = data.memory.concat(data.input);
+                    data.memory.push(keyPressed);
+                    console.log(data.memory);
+                    data.input = [0];
+                }
+                break;
             case "control":
                 switch (keyPressed){
                     case 'DEL':
@@ -134,7 +135,7 @@ var keypad = {
 var view = {
     update: function(){
         view.convertDataToColumns(data.input, "InputPos", 0);
-        // view.convertDataToColumns(data.memory, "memoryPos", pointerValue);
+        view.convertDataToColumns(data.memory, "memoryPos",0);
     },
     clearScreen:function(){
         for (var ii =0; ii < 12; ii++){
