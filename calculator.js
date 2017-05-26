@@ -82,29 +82,37 @@ var operation = {
         operation.terms = [];
         operation.parse();
         var alphaPriority = 0; // arbitrary placeholder value
-        for(var ii =0; ii < operation.operatorIndices.length; ii++){
+        for(var ii =0; ii < 1; ii++){
+            console.log(operation.terms);
+            console.log(operation.operatorIndices);
             var alphaPriority = operation.highestPriority();
-            console.log(operation.operatorIndices[alphaPriority][0]);
+            console.log(alphaPriority);
             if (operation.operatorIndices[alphaPriority][0] == 3) break;
             var result = operation.evaluateTerms(alphaPriority);
-            console.log("result"+result);
             operation.updateTerms(alphaPriority,result);
-            console.log("terms" + operation.terms);
         }
-        return operation.terms[0];
+        var answer = [operation.terms[0]];
+        return answer;
     },
     parse:function(){
         var equation = data.memory.join('');
         var newTerm = [];
+        var termNumber = 0;
         for (var ii =0; ii < equation.length; ii++){
             var nextCharacter = equation[ii];
             if (Number.isInteger(Number(nextCharacter))){
                 newTerm+=equation[ii];
             } else{
                 operation.terms.push(newTerm);
-                operation.operatorIndices.push([operation.priority(equation[ii]),ii]);
                 newTerm = '';
                 operation.terms.push(equation[ii]);
+            }
+        }
+        // add to operation.operatorIndices, refactor with updateTerms
+        operation.operatorIndices = [];
+        for (var ii =0; ii < operation.terms.length; ii ++){
+            if (!Number.isInteger(Number(operation.terms[ii]))){
+                operation.operatorIndices.push([operation.priority(operation.terms[ii]),ii]);
             }
         }
     },
@@ -128,6 +136,8 @@ var operation = {
         var operand1 = Number(operation.terms[operation.operatorIndices[alphaPriority][1]-1]);
         var operand2 = Number(operation.terms[operation.operatorIndices[alphaPriority][1]+1]);
         var operator = operation.terms[operation.operatorIndices[alphaPriority][1]];
+        console.log("operand1 " + operation.operatorIndices[alphaPriority][1]);
+        console.log("operand2 " + operand2);
         var result = 0;
         switch (operator){
             case '+':
@@ -142,14 +152,19 @@ var operation = {
             case '/':
                 result = operand1/operand2;
                 break;
-        } return result;
+        }console.log(operand1 + operator+ operand2 +'=' + result); 
+        return String(result);
     },
     updateTerms:function(alphaPriority, result){
         // remove evaluatedTerms + replace with result, assume no brackets
         var removed = operation.terms.splice(operation.operatorIndices[alphaPriority][1]-1, 3,result);
         // update indices
-        operation.operatorIndices.splice(alphaPriority,1);
-        console.log(operation.operatorIndices);
+        operation.operatorIndices = [];
+        for (var ii =0; ii < operation.terms.length; ii ++){
+            if (!Number.isInteger(Number(operation.terms[ii]))){
+                operation.operatorIndices.push([operation.priority(operation.terms[ii]),ii]);
+            }
+        }
     }
 }
 
@@ -193,7 +208,7 @@ var data = {
                             data.input = [];
                             if (data.memory.length > 0) data.memory.pop();
                         }
-                    break;
+                        break;
                     case '=': // room for refactoring here, same as operations, except for overwriting data.input
                         data.removeDotFromInput();
                         // if contains negative sign
@@ -206,13 +221,13 @@ var data = {
                         data.memory.push(keyPressed);
                         data.results = operation.calculate();
                         data.input = data.results;
-                    break;
+                        break;
                     case 'AC':
                         data.input = [];
                         data.memory = [];
+                        break;
+                    }
                     break;
-                }
-                break;
             case "special":
                 data.removeDotFromInput();
                 switch(keyPressed){
