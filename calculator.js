@@ -82,7 +82,9 @@ var operation = {
         operation.operatorIndices = [];
         operation.terms = [];
         operation.parse();
-        operation.highestPriority();
+        var smallest = operation.highestPriority();
+        var result = operation.evaluateTerms(smallest);
+        console.log(result);
     },
     parse:function(){
         var equation = data.memory.join('');
@@ -115,10 +117,13 @@ var operation = {
         }
         return smallest;
     },
-    evaluateTerms:function(operand1, operand2, operator){
-        console.log(operand1);
-        console.log(operand2);
-        console.log(operator);
+    evaluateTerms:function(smallest){
+        console.log("this is smallest" + smallest);
+        console.log(operation.operatorIndices);
+        console.log(operation.operatorIndices[smallest]);
+        var operand1 = operation.terms[operation.operatorIndices[smallest][1]-1];
+        var operand2 = operation.terms[operation.operatorIndices[smallest][1]+1];
+        var operator = operation.terms[operation.operatorIndices[smallest][1]];
         var result = 0;
         switch (operator){
             case '+':
