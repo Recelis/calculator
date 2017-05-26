@@ -26,15 +26,7 @@ data
         input: data.input
         do: called in operations, if memory ends with dot, remove dot from memory
         output:NA
-    highestPriority():
-        input: 
-        do: gets the highest priority operation
-        out: evalutated terms
-    evaluateTerms():
-        input: two terms, and an operator
-        do: sum, divide, multiply. minus them
-        out: result
-
+    
 
 view
     purpose(ABSTRACTS SCREEN): displays data onto screen
@@ -58,16 +50,24 @@ operation
         input: data.memory
         do: finds BOMDAS terms, finds order of operations
         output: calculation terms in sequences
-    calculates()
+    calculate()
         input: 
         do: does parsing and calcalations, calls other operation functions
         out: result
     priority()
         do: returns priority scores based on input operation string
-    sum()
-    minus()
-    divide()
-    multiply()
+    highestPriority():
+        input: 
+        do: gets the highest priority operation
+        out: evalutated terms
+    evaluateTerms():
+        input: two terms, and an operator
+        do: sum, divide, multiply. minus them
+        out: result
+    updateTerms():
+        input: terms, highestpriorityindex, result 
+        do: take terms one below to one above highestpriorityindex, replace with result
+        out: new terms
 writing with as much Vanilla JS as possible
 */
 
@@ -82,9 +82,10 @@ var operation = {
         operation.operatorIndices = [];
         operation.terms = [];
         operation.parse();
-        var smallest = operation.highestPriority();
-        var result = operation.evaluateTerms(smallest);
+        var alphaPriority = operation.highestPriority();
+        var result = operation.evaluateTerms(alphaPriority);
         console.log(result);
+        operation.updateTerms(alphaPriority,result);
     },
     parse:function(){
         var equation = data.memory.join('');
@@ -117,13 +118,10 @@ var operation = {
         }
         return smallest;
     },
-    evaluateTerms:function(smallest){
-        console.log("this is smallest" + smallest);
-        console.log(operation.operatorIndices);
-        console.log(operation.operatorIndices[smallest]);
-        var operand1 = operation.terms[operation.operatorIndices[smallest][1]-1];
-        var operand2 = operation.terms[operation.operatorIndices[smallest][1]+1];
-        var operator = operation.terms[operation.operatorIndices[smallest][1]];
+    evaluateTerms:function(alphaPriority){
+        var operand1 = operation.terms[operation.operatorIndices[alphaPriority][1]-1];
+        var operand2 = operation.terms[operation.operatorIndices[alphaPriority][1]+1];
+        var operator = operation.terms[operation.operatorIndices[alphaPriority][1]];
         var result = 0;
         switch (operator){
             case '+':
@@ -139,8 +137,19 @@ var operation = {
                 result = operand1/operand2;
                 break;
         } return result;
+    },
+    updateTerms:function(alphaPriority, result){
+        // remove evaluatedTerms + replace with result, assume no brackets
+        var removed = operation.terms.splice(operation.operatorIndices[alphaPriority][1]-1, 3,result);
     }
 }
+
+
+
+
+
+
+
 
 /* data object*/ 
 var data = {
@@ -242,6 +251,12 @@ var data = {
     },
 };
 
+
+
+
+
+
+
 /* keypad object*/
 var keypad = {
     keyPosition: 0,
@@ -252,6 +267,15 @@ var keypad = {
         return keyPressed;
     },
 }
+
+
+
+
+
+
+
+
+
 
 /* view object*/ 
 var view = {
