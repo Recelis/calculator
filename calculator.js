@@ -77,21 +77,27 @@ var operation = {
     errResultTooBig:['A','n','s',' ','T','o','o',' ','b','i','g','!'],
     terms:[],
     operatorIndices:[],
-    numPriorities: 3,
     calculate:function(){
         operation.operatorIndices = [];
         operation.terms = [];
         operation.parse();
-        var alphaPriority = operation.highestPriority();
-        var result = operation.evaluateTerms(alphaPriority);
-        console.log(result);
-        operation.updateTerms(alphaPriority,result);
+        var alphaPriority = 0; // arbitrary placeholder value
+        for(var ii =0; ii < operation.operatorIndices.length; ii++){
+            var alphaPriority = operation.highestPriority();
+            console.log(operation.operatorIndices[alphaPriority][0]);
+            if (operation.operatorIndices[alphaPriority][0] == 3) break;
+            var result = operation.evaluateTerms(alphaPriority);
+            console.log("result"+result);
+            operation.updateTerms(alphaPriority,result);
+            console.log("terms" + operation.terms);
+        }
+        return operation.terms[0];
     },
     parse:function(){
         var equation = data.memory.join('');
         var newTerm = [];
         for (var ii =0; ii < equation.length; ii++){
-            var nextCharacter = equation[ii]
+            var nextCharacter = equation[ii];
             if (Number.isInteger(Number(nextCharacter))){
                 newTerm+=equation[ii];
             } else{
@@ -119,8 +125,8 @@ var operation = {
         return smallest;
     },
     evaluateTerms:function(alphaPriority){
-        var operand1 = operation.terms[operation.operatorIndices[alphaPriority][1]-1];
-        var operand2 = operation.terms[operation.operatorIndices[alphaPriority][1]+1];
+        var operand1 = Number(operation.terms[operation.operatorIndices[alphaPriority][1]-1]);
+        var operand2 = Number(operation.terms[operation.operatorIndices[alphaPriority][1]+1]);
         var operator = operation.terms[operation.operatorIndices[alphaPriority][1]];
         var result = 0;
         switch (operator){
@@ -141,6 +147,9 @@ var operation = {
     updateTerms:function(alphaPriority, result){
         // remove evaluatedTerms + replace with result, assume no brackets
         var removed = operation.terms.splice(operation.operatorIndices[alphaPriority][1]-1, 3,result);
+        // update indices
+        operation.operatorIndices.splice(alphaPriority,1);
+        console.log(operation.operatorIndices);
     }
 }
 
@@ -195,7 +204,7 @@ var data = {
                         }
                         data.memory = data.memory.concat(data.input);
                         data.memory.push(keyPressed);
-                        operation.calculate();
+                        data.results = operation.calculate();
                         data.input = data.results;
                     break;
                     case 'AC':
