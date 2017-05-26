@@ -14,5 +14,11 @@
     }
 
 
+    var operand1 = operation.terms[operation.operatorIndices[smallest][1]-1];
+        var operand2 = operation.terms[operation.operatorIndices[smallest][1]+1];
+        var operator = operation.terms[operation.operatorIndices[smallest][1]];
+        var result = operation.evaluateTerms(operand1, operand2, operator);
+
+
 
             

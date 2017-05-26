@@ -26,9 +26,9 @@ data
         input: data.input
         do: called in operations, if memory ends with dot, remove dot from memory
         output:NA
-    loopTermsByPriority():
+    highestPriority():
         input: 
-        do: 
+        do: gets the highest priority operation
         out: evalutated terms
     evaluateTerms():
         input: two terms, and an operator
@@ -82,7 +82,7 @@ var operation = {
         operation.operatorIndices = [];
         operation.terms = [];
         operation.parse();
-        operation.loopTermsByPriority();
+        operation.highestPriority();
     },
     parse:function(){
         var equation = data.memory.join('');
@@ -100,27 +100,20 @@ var operation = {
         }
     },
     priority:function(operator){
-        if (operator == '(' || operator ==')') return 0;
+        if (operator == '(' || operator ==')') return 0; // minus three for any within flag 
         if (operator == '/' || operator== 'x') return 1;
         if (operator == '+' || operator == '-') return 2;
         if (operator == '=') return 3;
     },
-    loopTermsByPriority:function(){ // this could be been done better by instantialising objects
-        // loop through the priorities list, 0 to 3
-        for (var ii =0; ii < operation.numPriorities; ii++){       
-            // loop through operator indices
-            for (var jj =0; jj < operation.operatorIndices.length; jj++){
-                if (operation.operatorIndices[jj][0] == ii){ // check through each priority in index
-                    var operand1 = operation.terms[operation.operatorIndices[jj][1]-1];
-                    var operand2 = operation.terms[operation.operatorIndices[jj][1]+1];
-                    var operator = operation.terms[operation.operatorIndices[jj][1]];
-                    var result = operation.evaluateTerms(operand1, operand2, operator);
-                    // update terms and break loop
-                    console.log(result);
-                    return result;
-                }
+    highestPriority:function(){
+        // find lowest priority index
+        var smallest = 0;
+        for (var ii =0; ii < operation.operatorIndices.length; ii++){
+            if (operation.operatorIndices[ii][0] < operation.operatorIndices[smallest][0]){
+                smallest = ii;
             }
         }
+        return smallest;
     },
     evaluateTerms:function(operand1, operand2, operator){
         console.log(operand1);
