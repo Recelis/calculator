@@ -83,18 +83,14 @@ var operation = {
         operation.terms = [];
         operation.parse();
         var alphaPriority = 0; // arbitrary placeholder value
-        for (var ii =0; ii < 1; ii++){
+        for (var ii =0; ii < 10; ii++){
             var alphaPriority = operation.highestPriority();
-            console.log("alpha "+alphaPriority);
-            console.log("indices " + operation.operatorIndices);
             if (operation.operatorIndices[alphaPriority][0] == equals) break;
             var result = operation.evaluateTerms(alphaPriority);
             operation.updateTerms(alphaPriority,result);
-            console.log(operation.terms);
         }
         var answer = [operation.terms[0]];
         answer = operation.splitAnswerArray(answer);
-        console.log(answer);
         return answer;
     },
     parse:function(){
@@ -118,7 +114,6 @@ var operation = {
         }
         // add to operation.operatorIndices, refactor with updateTerms
         operation.updateIndices();
-        console.log(operation.terms);
     },
     priority:function(operator){
         if (operator == '('){
@@ -148,8 +143,6 @@ var operation = {
         var operand2 = Number(operation.terms[operation.operatorIndices[alphaPriority][1]+1]);
         var operator = operation.terms[operation.operatorIndices[alphaPriority][1]];
         var result = 0;
-        console.log(operation.operatorIndices[alphaPriority][1]-1);
-        console.log(operand2);
         switch (operator){
             case '+':
                 result = operand1+operand2;
