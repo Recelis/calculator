@@ -83,13 +83,16 @@ var operation = {
         operation.terms = [];
         operation.parse();
         var alphaPriority = 0; // arbitrary placeholder value
-        while(true){
+        for (var ii =0; ii < 10; ii++){
             var alphaPriority = operation.highestPriority();
             if (operation.operatorIndices[alphaPriority][0] == equals) break;
             var result = operation.evaluateTerms(alphaPriority);
             operation.updateTerms(alphaPriority,result);
+            console.log(result);
         }
         var answer = [operation.terms[0]];
+        answer = operation.splitAnswerArray(answer);
+        console.log(answer);
         return answer;
     },
     parse:function(){
@@ -176,6 +179,11 @@ var operation = {
                 operation.operatorIndices.push([operationPriority,ii]);
             }
         }
+    },
+    splitAnswerArray:function(answer){
+        //give it 5 decimal points at most
+        answer = [String(Math.floor(answer[0]*10000000) / 10000000)];
+        return answer[0].split('');
     }
 }
 
