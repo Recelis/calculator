@@ -76,8 +76,6 @@ const addSub = 2;
 const equals = 3;
 /* Operation Object*/
 var operation = {
-    errInvalidEquation:['I','n','v','a','l','i','d',' ','E','q','n','!',],
-    errResultTooBig:['A','n','s',' ','T','o','o',' ','b','i','g','!'],
     terms:[],
     operatorIndices:[],
     brackets:[],
@@ -174,12 +172,12 @@ var operation = {
     updateTerms:function(alphaPriority, result){
         var operatorIndex = operation.operatorIndices[alphaPriority][1];
         // remove evaluatedTerms + replace with result, assume no brackets
-        if (operation.terms[operatorIndex -2] != '(' || operation.terms[operatorIndex+2] == ')'){
+        if (operation.terms[operatorIndex -2] == '(' && operation.terms[operatorIndex+2] == ')'){
+            console.log('disnormal');
+            var removed = operation.terms.splice(operatorIndex-2, 5,result); 
+        } else{
             console.log('normal');
             var removed = operation.terms.splice(operatorIndex-1, 3,result);
-        } else{
-            console.log('disnormal');
-            var removed = operation.terms.splice(operatorIndex-2, 5,result);
         }
         // update indices
         operation.operatorIndices = [];
