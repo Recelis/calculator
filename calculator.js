@@ -99,6 +99,11 @@ var operation = {
         var equation = data.memory.join('');
         var newTerm = '';
         var termNumber = 0;
+        if (equation[0] == '-'){
+            operation.terms.push(-1);
+            operation.terms.push('x');
+            equation = equation.slice(1);
+        }
         for (var ii =0; ii < equation.length; ii++){
             var nextCharacter = equation[ii];
             if (Number.isInteger(Number(nextCharacter))){
@@ -206,7 +211,7 @@ var data = {
                 break;
             case "operations":
                 data.removeDotFromInput();
-                if (data.memory.length == 0 && (data.input.length == 0 || data.input[0] == '-')){
+                if (data.memory.length == 0 && (data.input.length == 0 && data.input[0] == '-')){
                     data.input = [0];
                     data.memory.push(0);
                     data.memory.push(keyPressed);

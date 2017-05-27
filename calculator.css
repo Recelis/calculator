@@ -3,9 +3,19 @@
     /*font-size:75px;*/
 }
 
-.btn-block{
+.btnStyle{
     width:20px;
     height:70px;
+    border-style:solid;
+    background-color:#1a1a1a;
+    color:orangered;
+    border-color:orangered;
+}
+
+.btnStyle:hover{
+    background-color:#737373;
+    /*border-color:darkgrey;*/
+    color:darkgrey;
 }
 
 .input{
@@ -16,7 +26,7 @@
     background-color:black;
     border-style: solid;
     border-color:black;
-    border-radius:5px;
+    border-radius:10px;
     margin:0 21% 0 21%; 
     padding:30px;
     text-align:center; 
@@ -26,6 +36,7 @@
     font-size:40px;
     color:silver;
     text-align:center;
+    font-family: 'Anton', sans-serif;
 }
 
 .screen{
@@ -33,6 +44,13 @@
     margin-right:20%;
     min-height:200px;
     text-align:center;
+    background-color: black;
+    border-style: solid;
+    border-color:#262626;
+}
+
+.jumbotron{
+    background:transparent !important
 }
 
 .keys{
@@ -46,4 +64,9 @@
 
 .numbers{
 
+}
+
+.copyright{
+    text-align: center;
+    font-size:20px;
 }
