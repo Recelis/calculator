@@ -83,12 +83,14 @@ var operation = {
         operation.terms = [];
         operation.parse();
         var alphaPriority = 0; // arbitrary placeholder value
-        for (var ii =0; ii < 10; ii++){
+        for (var ii =0; ii < 1; ii++){
             var alphaPriority = operation.highestPriority();
+            console.log("alpha "+alphaPriority);
+            console.log("indices " + operation.operatorIndices);
             if (operation.operatorIndices[alphaPriority][0] == equals) break;
             var result = operation.evaluateTerms(alphaPriority);
             operation.updateTerms(alphaPriority,result);
-            console.log(result);
+            console.log(operation.terms);
         }
         var answer = [operation.terms[0]];
         answer = operation.splitAnswerArray(answer);
@@ -106,7 +108,7 @@ var operation = {
         }
         for (var ii =0; ii < equation.length; ii++){
             var nextCharacter = equation[ii];
-            if (Number.isInteger(Number(nextCharacter))){
+            if (Number.isInteger(Number(nextCharacter)) || nextCharacter == '.'){
                 newTerm+=equation[ii];
             } else{
                 if (newTerm != '') operation.terms.push(newTerm);
@@ -116,6 +118,7 @@ var operation = {
         }
         // add to operation.operatorIndices, refactor with updateTerms
         operation.updateIndices();
+        console.log(operation.terms);
     },
     priority:function(operator){
         if (operator == '('){
@@ -145,6 +148,8 @@ var operation = {
         var operand2 = Number(operation.terms[operation.operatorIndices[alphaPriority][1]+1]);
         var operator = operation.terms[operation.operatorIndices[alphaPriority][1]];
         var result = 0;
+        console.log(operation.operatorIndices[alphaPriority][1]-1);
+        console.log(operand2);
         switch (operator){
             case '+':
                 result = operand1+operand2;
@@ -176,7 +181,8 @@ var operation = {
        // update indices
         operation.operatorIndices = [];
         for (var ii =0; ii < operation.terms.length; ii ++){
-            if (!Number.isInteger(Number(operation.terms[ii]))){
+            // if (!Number.isInteger(Number(operation.terms[ii]))){
+            if(isNaN(operation.terms[ii])){ 
                 var operationPriority = operation.priority(operation.terms[ii]);
                 if (operationPriority == 0) continue;
                 // check within number of brackets
