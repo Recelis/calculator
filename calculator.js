@@ -13,7 +13,6 @@ data
     memory: an array of strings
     input: an array
     results: an array
-    inputLocation: where pointer hand points to.
     calculation():
         input: memory
         do: convert to a formula 
@@ -191,7 +190,6 @@ var operation = {
 var data = {
     memory: [],
     input: [],
-    inputLocation:0,
     results: [],
     updateMemory:function(keyPressed, buttonObject){
         switch (buttonObject.className.split(' ')[0]){
@@ -221,7 +219,7 @@ var data = {
                             if (data.memory.length > 0) data.memory.pop();
                         }
                         break;
-                    case '=': // room for refactoring here, same as operations, except for overwriting data.input
+                    case '=':
                         data.removeDotFromInput();
                         // if contains negative sign
                         if (data.input[0] == '-'){
@@ -264,12 +262,6 @@ var data = {
                     case '.':
                         data.input.push('.');
                         break;
-                    // case '<':
-
-                    //     break;
-                    // case '>':
-
-                        // break;
                 }
                 break;
         };
