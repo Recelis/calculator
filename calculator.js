@@ -70,7 +70,7 @@ operation
         out: new terms
 writing with as much Vanilla JS as possible
 */
-const brackets = 0;
+const bracks = 0;
 const multiDivide = 1;
 const addSub = 2;
 const equals = 3;
@@ -80,17 +80,17 @@ var operation = {
     errResultTooBig:['A','n','s',' ','T','o','o',' ','b','i','g','!'],
     terms:[],
     operatorIndices:[],
+    brackets:[],
     calculate:function(){
         operation.operatorIndices = [];
         operation.terms = [];
         operation.parse();
         var alphaPriority = 0; // arbitrary placeholder value
-        for(var ii =0; ii < 1; ii++){
+        while(true){
             console.log(operation.terms);
             console.log(operation.operatorIndices);
             var alphaPriority = operation.highestPriority();
-            console.log(alphaPriority);
-            if (operation.operatorIndices[alphaPriority][0] == 3) break;
+            if (operation.operatorIndices[alphaPriority][0] == equals) break;
             var result = operation.evaluateTerms(alphaPriority);
             operation.updateTerms(alphaPriority,result);
         }
@@ -99,14 +99,14 @@ var operation = {
     },
     parse:function(){
         var equation = data.memory.join('');
-        var newTerm = [];
+        var newTerm = '';
         var termNumber = 0;
         for (var ii =0; ii < equation.length; ii++){
             var nextCharacter = equation[ii];
             if (Number.isInteger(Number(nextCharacter))){
                 newTerm+=equation[ii];
             } else{
-                operation.terms.push(newTerm);
+                if (newTerm != '') operation.terms.push(newTerm);
                 newTerm = '';
                 operation.terms.push(equation[ii]);
             }
@@ -116,13 +116,24 @@ var operation = {
         for (var ii =0; ii < operation.terms.length; ii ++){
             if (!Number.isInteger(Number(operation.terms[ii]))){
                 var operationPriority = operation.priority(operation.terms[ii]);
-
+                if (operationPriority == 0) continue;
+                // check within number of brackets
+                console.log("brackets" + operation.brackets);
+                operationPriority = operation.brackets.length *-3+operationPriority;
+                console.log("operationPriority" + operationPriority);
                 operation.operatorIndices.push([operationPriority,ii]);
             }
         }
     },
     priority:function(operator){
-        if (operator == '(' || operator ==')') return brackets; // minus three for any within flag 
+        if (operator == '('){
+            operation.brackets.push(1);
+            return bracks;
+        }
+        if (operator ==')'){
+            operation.brackets.pop();
+            return bracks;
+        }  
         if (operator == '/' || operator== 'x') return multiDivide;
         if (operator == '+' || operator == '-') return addSub;
         if (operator == '=') return equals;
@@ -161,9 +172,30 @@ var operation = {
         return String(result);
     },
     updateTerms:function(alphaPriority, result){
+        var operatorIndex = operation.operatorIndices[alphaPriority][1];
         // remove evaluatedTerms + replace with result, assume no brackets
-        var removed = operation.terms.splice(operation.operatorIndices[alphaPriority][1]-1, 3,result);
+        if (operation.terms[operatorIndex -2] != '(' || operation.terms[operatorIndex+2] == ')'){
+            console.log('normal');
+            var removed = operation.terms.splice(operatorIndex-1, 3,result);
+        } else{
+            console.log('disnormal');
+            var removed = operation.terms.splice(operatorIndex-2, 5,result);
+        }
         // update indices
+        operation.operatorIndices = [];
+        for (var ii =0; ii < operation.terms.length; ii ++){
+            if (!Number.isInteger(Number(operation.terms[ii]))){
+                var operationPriority = operation.priority(operation.terms[ii]);
+                if (operationPriority == 0) continue;
+                // check within number of brackets
+                console.log("brackets" + operation.brackets);
+                operationPriority = operation.brackets.length *-3+operationPriority;
+                console.log("operationPriority" + operationPriority);
+                operation.operatorIndices.push([operationPriority,ii]);
+            }
+        }
+    },
+    updateIndices:function(){
         operation.operatorIndices = [];
         for (var ii =0; ii < operation.terms.length; ii ++){
             if (!Number.isInteger(Number(operation.terms[ii]))){
