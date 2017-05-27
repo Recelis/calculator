@@ -1,20 +1,25 @@
 
 .memory{
-    font-size:30px;
+    /*font-size:75px;*/
 }
 
 .btn-block{
-    
+    width:20px;
+    height:70px;
 }
 
 .input{
-    font-size:30px;
+    font-size:50px;
 }
 
 .calculator{
-    background-color:darkblue;
+    background-color:black;
+    border-style: solid;
+    border-color:black;
     border-radius:5px;
-    margin:15%;  
+    margin:0 21% 0 21%; 
+    padding:30px;
+    text-align:center; 
 }
 
 .logo{
@@ -26,6 +31,8 @@
 .screen{
     margin-left: 20%;
     margin-right:20%;
+    min-height:200px;
+    text-align:center;
 }
 
 .keys{

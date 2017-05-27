@@ -243,6 +243,9 @@ var data = {
                     case 'AC':
                         data.input = [];
                         data.memory = [];
+                        operation.operatorIndices = [];
+                        operation.terms = [];
+                        operation.brackets = [];
                         break;
                     }
                     break;
