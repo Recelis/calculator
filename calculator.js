@@ -110,18 +110,7 @@ var operation = {
             }
         }
         // add to operation.operatorIndices, refactor with updateTerms
-        operation.operatorIndices = [];
-        for (var ii =0; ii < operation.terms.length; ii ++){
-            if (!Number.isInteger(Number(operation.terms[ii]))){
-                var operationPriority = operation.priority(operation.terms[ii]);
-                if (operationPriority == 0) continue;
-                // check within number of brackets
-                console.log("brackets" + operation.brackets);
-                operationPriority = operation.brackets.length *-3+operationPriority;
-                console.log("operationPriority" + operationPriority);
-                operation.operatorIndices.push([operationPriority,ii]);
-            }
-        }
+        operation.updateIndices();
     },
     priority:function(operator){
         if (operator == '('){
@@ -179,7 +168,11 @@ var operation = {
             console.log('normal');
             var removed = operation.terms.splice(operatorIndex-1, 3,result);
         }
-        // update indices
+        operation.updateIndices();
+        
+    },
+    updateIndices:function(){
+       // update indices
         operation.operatorIndices = [];
         for (var ii =0; ii < operation.terms.length; ii ++){
             if (!Number.isInteger(Number(operation.terms[ii]))){
@@ -190,14 +183,6 @@ var operation = {
                 operationPriority = operation.brackets.length *-3+operationPriority;
                 console.log("operationPriority" + operationPriority);
                 operation.operatorIndices.push([operationPriority,ii]);
-            }
-        }
-    },
-    updateIndices:function(){
-        operation.operatorIndices = [];
-        for (var ii =0; ii < operation.terms.length; ii ++){
-            if (!Number.isInteger(Number(operation.terms[ii]))){
-                operation.operatorIndices.push([operation.priority(operation.terms[ii]),ii]);
             }
         }
     }
