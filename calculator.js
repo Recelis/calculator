@@ -70,7 +70,10 @@ operation
         out: new terms
 writing with as much Vanilla JS as possible
 */
-
+const brackets = 0;
+const multiDivide = 1;
+const addSub = 2;
+const equals = 3;
 /* Operation Object*/
 var operation = {
     errInvalidEquation:['I','n','v','a','l','i','d',' ','E','q','n','!',],
@@ -112,15 +115,17 @@ var operation = {
         operation.operatorIndices = [];
         for (var ii =0; ii < operation.terms.length; ii ++){
             if (!Number.isInteger(Number(operation.terms[ii]))){
-                operation.operatorIndices.push([operation.priority(operation.terms[ii]),ii]);
+                var operationPriority = operation.priority(operation.terms[ii]);
+
+                operation.operatorIndices.push([operationPriority,ii]);
             }
         }
     },
     priority:function(operator){
-        if (operator == '(' || operator ==')') return 0; // minus three for any within flag 
-        if (operator == '/' || operator== 'x') return 1;
-        if (operator == '+' || operator == '-') return 2;
-        if (operator == '=') return 3;
+        if (operator == '(' || operator ==')') return brackets; // minus three for any within flag 
+        if (operator == '/' || operator== 'x') return multiDivide;
+        if (operator == '+' || operator == '-') return addSub;
+        if (operator == '=') return equals;
     },
     highestPriority:function(){
         // find lowest priority index
