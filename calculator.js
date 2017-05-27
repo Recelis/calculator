@@ -85,8 +85,6 @@ var operation = {
         operation.parse();
         var alphaPriority = 0; // arbitrary placeholder value
         while(true){
-            console.log(operation.terms);
-            console.log(operation.operatorIndices);
             var alphaPriority = operation.highestPriority();
             if (operation.operatorIndices[alphaPriority][0] == equals) break;
             var result = operation.evaluateTerms(alphaPriority);
@@ -139,8 +137,6 @@ var operation = {
         var operand1 = Number(operation.terms[operation.operatorIndices[alphaPriority][1]-1]);
         var operand2 = Number(operation.terms[operation.operatorIndices[alphaPriority][1]+1]);
         var operator = operation.terms[operation.operatorIndices[alphaPriority][1]];
-        console.log("operand1 " + operation.operatorIndices[alphaPriority][1]);
-        console.log("operand2 " + operand2);
         var result = 0;
         switch (operator){
             case '+':
@@ -155,17 +151,15 @@ var operation = {
             case '/':
                 result = operand1/operand2;
                 break;
-        }console.log(operand1 + operator+ operand2 +'=' + result); 
+        }
         return String(result);
     },
     updateTerms:function(alphaPriority, result){
         var operatorIndex = operation.operatorIndices[alphaPriority][1];
         // remove evaluatedTerms + replace with result, assume no brackets
         if (operation.terms[operatorIndex -2] == '(' && operation.terms[operatorIndex+2] == ')'){
-            console.log('disnormal');
             var removed = operation.terms.splice(operatorIndex-2, 5,result); 
         } else{
-            console.log('normal');
             var removed = operation.terms.splice(operatorIndex-1, 3,result);
         }
         operation.updateIndices();
@@ -179,9 +173,7 @@ var operation = {
                 var operationPriority = operation.priority(operation.terms[ii]);
                 if (operationPriority == 0) continue;
                 // check within number of brackets
-                console.log("brackets" + operation.brackets);
                 operationPriority = operation.brackets.length *-3+operationPriority;
-                console.log("operationPriority" + operationPriority);
                 operation.operatorIndices.push([operationPriority,ii]);
             }
         }
