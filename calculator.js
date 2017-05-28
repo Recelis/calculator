@@ -82,8 +82,13 @@ var operation = {
         operation.operatorIndices = [];
         operation.terms = [];
         operation.parse();
+        console.log(data.input);
+        console.log(data.memory);
         var alphaPriority = 0; // arbitrary placeholder value
         for (var ii =0; ii < 10; ii++){
+            console.log('**********************************');
+            console.log(operation.operatorIndices);
+            console.log(operation.terms);
             var alphaPriority = operation.highestPriority();
             if (operation.operatorIndices[alphaPriority][0] == equals) break;
             var result = operation.evaluateTerms(alphaPriority);
@@ -139,9 +144,13 @@ var operation = {
         return smallest;
     },
     evaluateTerms:function(alphaPriority){
+        if (operation.terms[operation.operatorIndices[alphaPriority][1]-1] == '(') { // negative sign (-x)
+             operation.terms.splice(operation.operatorIndices[alphaPriority][1],0,'1','x');
+        }
         var operand1 = Number(operation.terms[operation.operatorIndices[alphaPriority][1]-1]);
         var operand2 = Number(operation.terms[operation.operatorIndices[alphaPriority][1]+1]);
         var operator = operation.terms[operation.operatorIndices[alphaPriority][1]];
+        
         var result = 0;
         switch (operator){
             case '+':
@@ -283,7 +292,6 @@ var data = {
         return data.memory.length+1;
     },
     numberInput:function(inputRow, numberPressed){
-        console.log(inputRow);
         if (inputRow.length == 1 && inputRow[0] == 0) inputRow[0] = numberPressed;
         else if(inputRow[0] == '-' && inputRow[1] == 0) inputRow[1] = numberPressed;
         else inputRow.push(numberPressed);
