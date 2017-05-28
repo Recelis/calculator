@@ -283,8 +283,11 @@ var data = {
         return data.memory.length+1;
     },
     numberInput:function(inputRow, numberPressed){
-        if (inputRow.length == 1 && inputRow[0] == 0 || (inputRow == ['-', '0'])) inputRow[0] = numberPressed;
+        console.log(inputRow);
+        if (inputRow.length == 1 && inputRow[0] == 0) inputRow[0] = numberPressed;
+        else if(inputRow[0] == '-' && inputRow[1] == 0) inputRow[1] = numberPressed;
         else inputRow.push(numberPressed);
+        
         return inputRow;
     },
     removeDotFromInput:function(){
