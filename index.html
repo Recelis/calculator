@@ -28,11 +28,11 @@ buttons AC, and CE.
 </head>
 <body>
     <div class = "calculator">
-        <div class = "logo"> DI geeOhDee Calculator</div>
+        <span class = "logo"> **</span>
         <div class = "container">
             <div class = "screen jumbotron">
                 <div class = "row">
-                    <div id = "memory">
+                    <div class = "memory">
                     <div class = "col-xs-1" id = "memoryPos11"></div>
                     <div class = "col-xs-1" id = "memoryPos10"></div>
                     <div class = "col-xs-1" id = "memoryPos9"></div>
@@ -134,7 +134,9 @@ buttons AC, and CE.
         </div>       
     </div>
     <div class = "copyright">
-        <p>&#169; copyright Jacky Lui 2017</p>
+        <p>&#169; copyright Jacky Lui 2017
+            <span><button onClick = "openWindow()" class = "github"><img class = "github" src = "./img/github.png"></img></button></span>
+        </p>
     </div>
 </body>
 </html>

@@ -357,4 +357,8 @@ var view = {
     }
 };
 
+function openWindow(){
+    window.open("https://github.com/Recelis/calculator",'_blank');
+  }
+
 
